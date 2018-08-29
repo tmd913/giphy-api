@@ -15,13 +15,23 @@ const topics = [
     "The Other Guys", "Elf"
 ];
 
+let currentTopic;
+let currentLimit;
+let currentOffset;
+let currentQueryURL;
+
 // Function for dumping the JSON content for each button into the div
 function displayGifInfo() {
 
     let topic = this.dataset.name;
     let limit = 10;
     let offset = 0;
-    let queryURL = `https://api.giphy.com/v1/gifs/search?q=${topic}&api_key=dc6zaTOxFJmzC&limit=${limit}&${offset}`;
+    let queryURL = `https://api.giphy.com/v1/gifs/search?q=${topic}&api_key=dc6zaTOxFJmzC&limit=${limit}&offset=${offset}`;
+
+    currentTopic = topic;
+    currentLimit = limit;
+    currentOffset = offset;
+    currentQueryURL = queryURL;
 
     $.ajax({
         url: queryURL,
@@ -32,6 +42,7 @@ function displayGifInfo() {
         for (const key in response.data) {
             if (response.data.hasOwnProperty(key)) {
                 const element = response.data[key];
+                let gifContainer = $("<div>").attr("class", "gif-container");
                 let stillSrc = element.images.fixed_height_still.url;
                 let animatedSrc = element.images.fixed_height.url;
                 let img = $("<img>");
@@ -42,12 +53,53 @@ function displayGifInfo() {
                     "data-animated_url": animatedSrc, 
                     "data-currently_animated": "false"
                 });
-                topicContainer.append(img); /* height="348px" width="480px"/>`);*/
+                let rating = $("<p>");
+                rating.attr("class", "rating");
+                rating.text(element.rating);
+                gifContainer.append(img); /* height="348px" width="480px"/>`);*/
+                gifContainer.append(rating);
+                topicContainer.append(gifContainer);
                 $("#gif-view").prepend(topicContainer);
             }
         }
     });
 
+}
+
+function addMoreGifs () {
+    currentOffset += 10;
+    currentQueryURL = `https://api.giphy.com/v1/gifs/search?q=${currentTopic}&api_key=dc6zaTOxFJmzC&limit=${currentLimit}&offset=${currentOffset}`
+
+    $.ajax({
+        url: currentQueryURL,
+        method: "GET"
+    }).then(response => {
+        console.log(response);
+        let topicContainer = $("<div>").attr("id", "topic-container");
+        for (const key in response.data) {
+            if (response.data.hasOwnProperty(key)) {
+                const element = response.data[key];
+                let gifContainer = $("<div>").attr("class", "gif-container");
+                let stillSrc = element.images.fixed_height_still.url;
+                let animatedSrc = element.images.fixed_height.url;
+                let img = $("<img>");
+                img.addClass("gif");
+                img.attr({
+                    "src": stillSrc, 
+                    "data-still_url": stillSrc, 
+                    "data-animated_url": animatedSrc, 
+                    "data-currently_animated": "false"
+                });
+                let rating = $("<p>");
+                rating.attr("class", "rating");
+                rating.text(element.rating);
+                gifContainer.append(img); /* height="348px" width="480px"/>`);*/
+                gifContainer.append(rating);
+                topicContainer.append(gifContainer);
+                $("#gif-view").prepend(topicContainer);
+            }
+        }
+    });
 }
 
 function renderButtons() {
@@ -83,6 +135,8 @@ $("#add-topic").on("click", event => {
 });
 
 $(document).on("click", ".topic", displayGifInfo);
+
+$(document).on("click", "#add-more", addMoreGifs);
 
 // $(document).on("click", ".gif", function () {
 //     if (this.dataset.currently_animated === "false") {
