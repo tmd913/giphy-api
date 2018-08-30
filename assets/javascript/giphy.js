@@ -39,7 +39,7 @@ function GifPage() {
         let title = $("<h2>");
         title.addClass("gif-title");
         title.text(element.title);
-        let a = $(`<a href="/images/${element.title}.jpg" download></a>`);
+        let a = $(`<a href="~/pictures/${element.title}.jpg" download></a>`);
         let img = $("<img>");
         img.addClass("gif");
         let stillSrc = element.images.fixed_height_still.url;
