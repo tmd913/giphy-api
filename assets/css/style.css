@@ -82,6 +82,7 @@ form {
     display: block;
     height: 40px;
     background-color: #23b136;
+    border: none;
     color: #ffffff;
 }
 
