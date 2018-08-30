@@ -39,7 +39,7 @@ function GifPage() {
         let title = $("<h2>");
         title.addClass("gif-title");
         title.text(element.title);
-        let a = $(`<a href="https://media0.giphy.com/media/11clOWGCHzWG7C/200_s.gif?cid=e1bb72ff5b875c4f42736e4e77e1685f.gif" download></a>`);
+        let a = $(`<a href="https://media0.giphy.com/media/11clOWGCHzWG7C/200_s.gif?cid=e1bb72ff5b875c4f42736e4e77e1685f.gif" download="download"></a>`);
         let img = $("<img>");
         img.addClass("gif");
         let stillSrc = element.images.fixed_height_still.url;
