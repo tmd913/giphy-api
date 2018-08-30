@@ -72,15 +72,31 @@ form {
 }
 
 #topic-input {
-    width: 300px;
+    width: 320px;
+    /* text-align: center; */
 }
 
 #add-more {
     margin: 0 auto;
+    margin-top: 10px;
     display: block;
+    height: 40px;
+    background-color: #23b136;
+    color: #ffffff;
 }
 
 #buttons-view {
-    margin-top: 20px;
+    margin-top: 10px;
     text-align: center;
+}
+
+.form-control {
+    margin: 0 auto;
+    display: block;
+}
+
+.topic {
+    background-color: #d86800;
+    border: none;
+    height: 40px;
 }
