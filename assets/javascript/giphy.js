@@ -39,6 +39,7 @@ function GifPage() {
         let title = $("<h2>");
         title.addClass("gif-title");
         title.text(element.title);
+        let a = $(`<a href="/images/${element.title}.jpg" download></a>`);
         let img = $("<img>");
         img.addClass("gif");
         let stillSrc = element.images.fixed_height_still.url;
@@ -53,7 +54,8 @@ function GifPage() {
         rating.attr("class", "rating");
         rating.text(`Rating: ${element.rating.toUpperCase()}`);
         gifContainer.append(title)
-        gifContainer.append(img); /* height="348px" width="480px"/>`);*/
+        a.append(img);
+        gifContainer.append(a); /* height="348px" width="480px"/>`);*/
         gifContainer.append(rating);
 
         return gifContainer;
