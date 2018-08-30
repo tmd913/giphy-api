@@ -36,10 +36,13 @@ function GifPage() {
     };
     this.buildGif = element => {
         let gifContainer = $("<div>").attr("class", "gif-container");
-        let stillSrc = element.images.fixed_height_still.url;
-        let animatedSrc = element.images.fixed_height.url;
+        let title = $("<h2>");
+        title.addClass("gif-title");
+        title.text(element.title);
         let img = $("<img>");
         img.addClass("gif");
+        let stillSrc = element.images.fixed_height_still.url;
+        let animatedSrc = element.images.fixed_height.url;
         img.attr({
             "src": stillSrc,
             "data-still_url": stillSrc,
@@ -48,7 +51,8 @@ function GifPage() {
         });
         let rating = $("<p>");
         rating.attr("class", "rating");
-        rating.text(element.rating);
+        rating.text(`Rating: ${element.rating.toUpperCase()}`);
+        gifContainer.append(title)
         gifContainer.append(img); /* height="348px" width="480px"/>`);*/
         gifContainer.append(rating);
 
@@ -56,26 +60,29 @@ function GifPage() {
     };
     // Function for dumping the JSON content for each button into the div
     this.displayTopic = GiphyData => {
+        console.log(GiphyData);
         if (this.currentOffset === 0) {
             this.clear();
         }
 
-        let topicContainer = $("<div>").attr("id", "topic-container");
+        // let topicContainer = $("<div>").attr("class", "topic-container");
 
         for (const key in GiphyData.data) {
             if (GiphyData.data.hasOwnProperty(key)) {
                 const element = GiphyData.data[key];
-                topicContainer.append(this.buildGif(element));
-                $("#gif-view").prepend(topicContainer);
+                // topicContainer.append(this.buildGif(element));
+                $("#gif-view").prepend(this.buildGif(element));
             }
         }
+
+        // $("#gif-view").prepend(topicContainer);
     };
     this.renderButtons = () => {
         $("#buttons-view").empty();
 
         for (var i = 0; i < this.topics.length; i++) {
             let a = $("<button>");
-            a.addClass("topic");
+            a.addClass("topic btn-primary");
             a.attr("data-name", this.topics[i]);
             a.text(this.topics[i]);
             $("#buttons-view").append(a);

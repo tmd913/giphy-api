@@ -1,8 +1,30 @@
+#gif-view {
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+}
+
+.container-fluid {
+    padding: 0;
+}
+
 .gif-container {
     display: inline-block;
     text-align: center;
     margin: 10px;
-    border: solid #000000 1px;
+    border: solid #000000 2px;
+    border-radius: 10px;
+    background: url("../images/whirlpool.png");
+}
+
+@media (max-width: 414px) {
+    .gif-container {
+        margin: 10px 0;
+    }
+}
+
+.gif {
+    text-align: center;
 }
 
 .rating {
@@ -10,3 +32,55 @@
     margin: 0;
 }
 
+img {
+    max-width: 359px;
+    height: 200px;
+}
+
+h2 {
+    margin: 0;
+    padding: 5px;
+    font-size: 20px;
+}
+
+body {
+    background: url("../images/congruent_pentagon.png");
+}
+
+h1 {
+    text-align: center;
+    margin: 10px;
+}
+
+.jumbotron {
+    background: url("../images/whirlpool.png");
+    border-radius: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+button, input {
+    border-radius: 5px;
+    margin: 5px;
+}
+
+form {
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+}
+
+#topic-input {
+    width: 300px;
+}
+
+#add-more {
+    margin: 0 auto;
+    display: block;
+}
+
+#buttons-view {
+    margin-top: 20px;
+    text-align: center;
+}
