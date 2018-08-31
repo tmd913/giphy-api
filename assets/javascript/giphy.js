@@ -53,9 +53,7 @@ function GifPage() {
         rating.attr("class", "rating");
         rating.text(`Rating: ${element.rating.toUpperCase()}`);
         gifContainer.append(title)
-        let a = $(`<a href="${element.images.fixed_height_still.url}" download></a>`);
-        a.append(img);
-        gifContainer.append(a); /* height="348px" width="480px"/>`);*/
+        gifContainer.append(img); 
         gifContainer.append(rating);
 
         return gifContainer;
@@ -67,24 +65,19 @@ function GifPage() {
             this.clear();
         }
 
-        // let topicContainer = $("<div>").attr("class", "topic-container");
-
         for (const key in GiphyData.data) {
             if (GiphyData.data.hasOwnProperty(key)) {
                 const element = GiphyData.data[key];
-                // topicContainer.append(this.buildGif(element));
                 $("#gif-view").prepend(this.buildGif(element));
             }
         }
-
-        // $("#gif-view").prepend(topicContainer);
     };
     this.renderButtons = () => {
         $("#buttons-view").empty();
 
         for (var i = 0; i < this.topics.length; i++) {
             let a = $("<button>");
-            a.addClass("topic btn-primary");
+            a.addClass("topic btn btn-info");
             a.attr("data-name", this.topics[i]);
             a.text(this.topics[i]);
             $("#buttons-view").append(a);
@@ -93,12 +86,10 @@ function GifPage() {
     this.animateGif = gif => {
         let animatedSrc = gif.dataset.animated_url;
         $(gif).attr("src", animatedSrc);
-        // $(this).attr("data-currently_animated", "true");
     };
     this.stopAnimatedGif = gif => {
         let stillSrc = gif.dataset.still_url;
         $(gif).attr("src", stillSrc);
-        // $(this).attr("data-currently_animated", "false");
     };
     this.clear = () => {
         $("#gif-view").empty();
@@ -115,7 +106,6 @@ $("#add-topic").on("click", event => {
     currentGifPage.renderButtons();
 });
 
-// $(document).on("click", ".topic", displayGifInfo);
 $(document).on("click", ".topic", event => {
     currentGifPage.currentOffset = 0;
     let queryURL = currentGifPage.buildQueryURL(event.target.dataset.name, currentGifPage.currentOffset);
@@ -135,14 +125,6 @@ $(document).on("click", "#add-more", () => {
         method: "GET"
     }).then(currentGifPage.displayTopic);
 });
-
-// $(document).on("click", ".gif", function () {
-//     if (this.dataset.currently_animated === "false") {
-//         animateGif.call(this);
-//     } else {
-//         stopAnimatedGif.call(this);
-//     }
-// });
 
 $(document).on("mouseover", ".gif", event => {
     currentGifPage.animateGif(event.currentTarget);
